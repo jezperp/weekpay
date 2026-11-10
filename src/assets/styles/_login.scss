@@ -1,0 +1,16 @@
+.login {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 1rem;
+
+  &__card {
+    width: 100%;
+    max-width: 24rem;
+    padding: 2rem;
+  }
+
+  &__title {
+    text-align: center;
+  }
+}
