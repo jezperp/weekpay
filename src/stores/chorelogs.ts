@@ -8,7 +8,12 @@ export interface ChoreLog {
   chore_id: string
   amount: number
   delta: 1 | -1
+  created_at: string
+  // Joined so archived chores keep their name on the Earned page.
+  chores: { name: string; icon: string | null; color: string | null } | null
 }
+
+const COLUMNS = 'id, chore_id, amount, delta, created_at, chores(name, icon, color)'
 
 const round2 = (n: number) => Math.round(n * 100) / 100
 
@@ -43,13 +48,13 @@ export const useChoreLogsStore = defineStore('chorelogs', () => {
     reset(id)
     const { data, error } = await supabase
       .from('chore_logs')
-      .select('id, chore_id, amount, delta')
+      .select(COLUMNS)
       .eq('child_id', id)
       .is('payout_id', null)
       .order('created_at')
     if (error) throw error
     // Ignore a stale response if the user navigated to another child meanwhile.
-    if (childId.value === id) logs.value = data as ChoreLog[]
+    if (childId.value === id) logs.value = data as unknown as ChoreLog[]
   }
 
   function count(choreId: string) {
@@ -78,19 +83,26 @@ export const useChoreLogsStore = defineStore('chorelogs', () => {
       }
     }
 
-    const temp: ChoreLog = { id: `tmp-${crypto.randomUUID()}`, chore_id: chore.id, amount, delta }
+    const temp: ChoreLog = {
+      id: `tmp-${crypto.randomUUID()}`,
+      chore_id: chore.id,
+      amount,
+      delta,
+      created_at: new Date().toISOString(),
+      chores: { name: chore.name, icon: chore.icon, color: chore.color },
+    }
     logs.value.push(temp)
     const { data, error } = await supabase
       .from('chore_logs')
       .insert({ child_id: id, chore_id: chore.id, amount, delta })
-      .select('id, chore_id, amount, delta')
+      .select(COLUMNS)
       .single()
     const i = logs.value.findIndex((l) => l.id === temp.id)
     if (error) {
       if (i !== -1) logs.value.splice(i, 1)
       throw error
     }
-    if (i !== -1) logs.value[i] = data as ChoreLog
+    if (i !== -1) logs.value[i] = data as unknown as ChoreLog
   }
 
   return { logs, balance, reset, fetch, count, earned, log }

@@ -34,11 +34,11 @@ const child = computed(() => childrenStore.byId(childId.value))
       </span>
     </RouterLink>
 
-    <!-- Shows the live total; becomes a link once the Earned page exists -->
-    <span class="nav__item nav__item--earned" :aria-label="`Earned: ${formatKr(logsStore.balance)}`">
+    <RouterLink :to="{ name: 'child-earned', params: { id: childId } }" class="nav__item"
+      exact-active-class="nav__item--active" :aria-label="`Earned: ${formatKr(logsStore.balance)}`">
       <Coins :size="22" class="nav__coin" />
       <EarnedCounter class="nav__label" :value="logsStore.balance" />
-    </span>
+    </RouterLink>
 
     <RouterLink :to="{ name: 'child-settings', params: { id: childId } }" class="nav__item"
       exact-active-class="nav__item--active">

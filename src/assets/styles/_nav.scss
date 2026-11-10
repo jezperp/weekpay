@@ -21,6 +21,7 @@
   box-shadow: 0 -0.25rem 1rem rgba(0, 0, 0, 0.06);
 
   &__item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,15 +36,23 @@
       color: var(--bs-primary);
     }
 
+    // Small bar on top of the active tab (the avatar tab has its own ring).
+    &--active:not(.nav__item--center)::before {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1.5rem;
+      height: 3px;
+      border-radius: 0 0 3px 3px;
+      background: var(--bs-primary);
+      content: '';
+      transform: translateX(-50%);
+    }
+
     // Not built yet.
     &--disabled {
       opacity: 0.35;
       pointer-events: none;
-    }
-
-    // Live total; looks normal (not greyed) even though it is not a link yet.
-    &--earned {
-      color: var(--bs-body-color);
     }
 
     // The child avatar sits in the middle and rises above the bar.
