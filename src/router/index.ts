@@ -6,7 +6,15 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', name: 'profiles', component: () => import('@/views/ProfilesView.vue'), meta: { requiresAuth: true } },
-    { path: '/child/:id', name: 'child', component: () => import('@/views/ChildView.vue'), meta: { requiresAuth: true } },
+    {
+      path: '/child/:id',
+      component: () => import('@/views/ChildLayout.vue'),
+      meta: { requiresAuth: true },
+      children: [
+        { path: '', name: 'child', component: () => import('@/views/ChildView.vue') },
+        { path: 'settings', name: 'child-settings', component: () => import('@/views/SettingsView.vue') },
+      ],
+    },
     { path: '/login', name: 'login', component: () => import('@/views/LoginView.vue') },
   ],
 })

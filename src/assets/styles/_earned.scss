@@ -1,0 +1,33 @@
+// Animated earned total (used in the bottom nav). Counts up and "bumps" on change.
+.earned__amount {
+  display: inline-block;
+  color: var(--bs-success);
+  font-variant-numeric: tabular-nums;
+
+  &--up {
+    animation: earned-up 0.45s ease-out;
+  }
+
+  &--down {
+    animation: earned-down 0.3s ease-out;
+  }
+}
+
+@keyframes earned-up {
+  0% { transform: scale(1); text-shadow: none; }
+  35% { transform: scale(1.25); text-shadow: 0 0 0.75rem rgba(var(--bs-warning-rgb), 0.9); }
+  100% { transform: scale(1); text-shadow: none; }
+}
+
+@keyframes earned-down {
+  0% { transform: scale(1); }
+  40% { transform: scale(0.88); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .earned__amount--up,
+  .earned__amount--down {
+    animation: none;
+  }
+}

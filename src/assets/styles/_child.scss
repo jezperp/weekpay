@@ -10,49 +10,6 @@
     padding: 1rem;
   }
 
-  // Three columns so the avatar sits in the exact center of the header.
-  &__header {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  &__back {
-    display: grid;
-    place-items: center;
-    width: 3rem;
-    height: 3rem;
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  &__who {
-    display: flex;
-    justify-content: center;
-  }
-
-  &__balance {
-    justify-self: end;
-  }
-
-  &__avatar {
-    display: grid;
-    place-items: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-    background-color: var(--bs-primary);
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: 800;
-  }
-
-  &__amount {
-    margin: 0;
-    color: var(--bs-success);
-  }
-
   &__list {
     display: flex;
     flex-direction: column;
@@ -60,11 +17,6 @@
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-
-  &__actions {
-    display: flex;
-    justify-content: center;
   }
 }
 
@@ -77,24 +29,15 @@
   gap: 0.75rem;
   width: 100%;
   padding: 0.5rem;
-  border: 3px solid transparent;
   border-radius: var(--bs-border-radius-lg);
   background: var(--bs-body-bg);
   box-shadow: var(--bs-box-shadow);
-  transition: border-color 0.15s ease;
   user-select: none;
 
-  &--active {
-    border-color: var(--bs-primary);
-  }
-
-  &--add {
-    justify-content: center;
-    min-height: 3.5rem;
-    border: 3px dashed var(--bs-border-color);
-    background: none;
-    box-shadow: none;
-    color: var(--bs-secondary-color);
+  // Shadows vanish on dark backgrounds, so lift the card with a lighter fill and a hairline instead.
+  [data-bs-theme='dark'] & {
+    background: var(--bs-tertiary-bg);
+    box-shadow: 0 0 0 1px var(--bs-border-color);
   }
 
   &__btn {
@@ -107,23 +50,23 @@
     border-radius: 50%;
     touch-action: manipulation; // no double-tap zoom when tapping + quickly
 
-    // Plus button grows into a pill when it shows the count: "+ 3". Stays a circle at zero.
-    &--count {
-      display: flex;
-      gap: 0.125rem;
-      align-items: center;
-      justify-content: center;
-      width: auto;
-      min-width: 2.5rem;
-      padding: 0 1rem 0 0.75rem;
-      border-radius: 1.25rem;
+    // btn-light stays bright in dark mode; tone the minus button down to a mid grey that still stands out from the card.
+    &.btn-light {
+      [data-bs-theme='dark'] & {
+        --bs-btn-color: var(--bs-body-color);
+        --bs-btn-bg: var(--bs-border-color);
+        --bs-btn-border-color: transparent;
+        --bs-btn-hover-color: var(--bs-body-color);
+        --bs-btn-hover-bg: var(--bs-gray-600);
+        --bs-btn-hover-border-color: transparent;
+        --bs-btn-active-color: var(--bs-body-color);
+        --bs-btn-active-bg: var(--bs-gray-600);
+        --bs-btn-active-border-color: transparent;
+        --bs-btn-disabled-color: var(--bs-secondary-color);
+        --bs-btn-disabled-bg: var(--bs-secondary-bg);
+        --bs-btn-disabled-border-color: transparent;
+      }
     }
-  }
-
-  &__count {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1;
   }
 
   &__icon {
@@ -142,8 +85,10 @@
   // "Sale label" showing the price per piece, pinned to the icon's top-right corner.
   &__price {
     position: absolute;
-    top: -0.6rem;
-    right: -0.75rem;
+    top: -0.5rem;
+    right: -0.6rem;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.625rem;
     transform: rotate(8deg);
     white-space: nowrap;
     box-shadow: var(--bs-box-shadow-sm);

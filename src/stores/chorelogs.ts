@@ -31,9 +31,16 @@ export const useChoreLogsStore = defineStore('chorelogs', () => {
 
   const balance = computed(() => round2(logs.value.reduce((sum, l) => sum + l.amount * l.delta, 0)))
 
-  async function fetch(id: string) {
+  // Switch to another child and drop the previous child's logs right away
+  // (so the counter never flashes the wrong balance).
+  function reset(id: string) {
+    if (childId.value === id) return
     childId.value = id
     logs.value = []
+  }
+
+  async function fetch(id: string) {
+    reset(id)
     const { data, error } = await supabase
       .from('chore_logs')
       .select('id, chore_id, amount, delta')
@@ -86,5 +93,5 @@ export const useChoreLogsStore = defineStore('chorelogs', () => {
     if (i !== -1) logs.value[i] = data as ChoreLog
   }
 
-  return { logs, balance, fetch, count, earned, log }
+  return { logs, balance, reset, fetch, count, earned, log }
 })
