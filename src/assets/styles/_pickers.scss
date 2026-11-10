@@ -1,0 +1,40 @@
+// Shared form pickers used in modals (color swatches, icon grid).
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.swatch {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 3px solid transparent;
+  border-radius: 50%;
+
+  &--selected {
+    border-color: var(--bs-body-color);
+    box-shadow: 0 0 0 2px var(--bs-body-bg) inset;
+  }
+}
+
+.icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.25rem, 1fr));
+  gap: 0.5rem;
+
+  &__item {
+    display: grid;
+    place-items: center;
+    height: 3.25rem;
+    border: 2px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background: none;
+    color: inherit;
+
+    &--selected {
+      border-color: var(--bs-primary);
+      background: rgba(var(--bs-primary-rgb), 0.12);
+      color: var(--bs-primary);
+    }
+  }
+}

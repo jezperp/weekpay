@@ -42,7 +42,7 @@ function submit() {
   <template v-if="open">
     <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true" @click.self="emit('close')">
       <div class="modal-dialog modal-dialog-centered">
-        <form class="modal-content child-modal" @submit.prevent="submit">
+        <form class="modal-content" @submit.prevent="submit">
           <div class="modal-header">
             <h2 class="modal-title h3">{{ child ? 'Edit profile' : 'Add child' }}</h2>
             <button type="button" class="btn-close" aria-label="Close" @click="emit('close')" />
@@ -57,9 +57,9 @@ function submit() {
 
             <fieldset>
               <legend class="form-label fs-6">Color</legend>
-              <div class="child-modal__colors">
-                <button v-for="c in PALETTE" :key="c" type="button" class="child-modal__color"
-                  :class="{ 'child-modal__color--selected': c === color }" :style="{ backgroundColor: c }"
+              <div class="swatches">
+                <button v-for="c in PALETTE" :key="c" type="button" class="swatch"
+                  :class="{ 'swatch--selected': c === color }" :style="{ backgroundColor: c }"
                   :aria-label="`Color ${c}`" :aria-pressed="c === color" @click="color = c" />
               </div>
             </fieldset>

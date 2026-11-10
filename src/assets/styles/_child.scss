@@ -1,0 +1,191 @@
+.child {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 0.75rem;
+
+  @include media-breakpoint-up(sm) {
+    padding: 1rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__back {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  &__who {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__avatar {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: var(--bs-primary);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  &__name {
+    margin: 0;
+  }
+
+  &__balance {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__amount {
+    margin: 0;
+    color: var(--bs-success);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+// Mobile-first: compact single row (44px+ tap targets), roomier from sm up.
+.chore {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: 3px solid transparent;
+  border-radius: var(--bs-border-radius-lg);
+  background: var(--bs-body-bg);
+  box-shadow: var(--bs-box-shadow);
+  transition: border-color 0.15s ease;
+  user-select: none;
+
+  @include media-breakpoint-up(sm) {
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  &--active {
+    border-color: var(--bs-primary);
+  }
+
+  &--add {
+    justify-content: center;
+    min-height: 4rem;
+    border: 3px dashed var(--bs-border-color);
+    background: none;
+    box-shadow: none;
+    color: var(--bs-secondary-color);
+  }
+
+  &__btn {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border-radius: 50%;
+    touch-action: manipulation; // no double-tap zoom when tapping + quickly
+
+    @include media-breakpoint-up(sm) {
+      width: 3.25rem;
+      height: 3.25rem;
+    }
+  }
+
+  &__icon {
+    position: relative;
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.5rem; // room for the price label under the icon
+    border-radius: 50%;
+    background-color: var(--bs-primary);
+    color: #fff;
+
+    @include media-breakpoint-up(sm) {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+  }
+
+  // "Sale label" showing the price per piece, pinned under the icon.
+  &__price {
+    position: absolute;
+    bottom: -0.55rem;
+    left: 50%;
+    transform: translateX(-50%) rotate(-6deg);
+    white-space: nowrap;
+    box-shadow: var(--bs-box-shadow-sm);
+  }
+
+  &__edit {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: var(--bs-box-shadow-sm);
+  }
+
+  &__name {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  &__tally {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: center;
+    min-width: 3.5rem;
+
+    @include media-breakpoint-up(sm) {
+      min-width: 4.5rem;
+    }
+  }
+
+  &__count,
+  &__earned {
+    margin: 0;
+    line-height: 1.2;
+  }
+}

@@ -52,17 +52,15 @@ src/
 - Supabase project exists; `.env` (gitignored) has `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`. Login works; user account created.
 - Schema in `supabase/migrations/0001_init.sql` (children, chores, payouts, chore_logs + RLS) and `0002_grants.sql` (GRANTs to `authenticated`; new Supabase projects don't auto-grant, so every new table needs a GRANT too) have been run in the dashboard. Money is `numeric(10,2)`; `chore_logs.amount` / `payouts.amount` are snapshots; chores are archived (`archived`) instead of deleted; balance = `sum(amount * delta)` over logs with `payout_id is null`.
 - Profile picker done: Netflix-style grid, "Add child" modal, "Manage" mode with pencil to edit/delete (`ProfilesView`, `ChildFormModal`, `stores/children.ts`). Colors from `lib/palette.ts`; no avatar images yet (initial letter).
-- `/child/:id` (`ChildView`) is a placeholder.
+- Child view done (uncommitted, untested in browser): mobile-first chore list (minus left, plus right, price as label on icon, count + earned per chore) with running balance (`ChildView`, `stores/chores.ts`, `stores/chorelogs.ts`), "Manage" mode to add/edit/archive chores (`ChoreFormModal`), curated Lucide icon set in `lib/icons.ts`, kr formatting in `lib/format.ts`. Every tap = one `chore_logs` row; minus stops at 0 per chore and reuses the price snapshot of the latest plus. Chores are shared by all children. Shared pickers in `_pickers.scss`.
 - Commits are local only, **not yet pushed** (ask the user before pushing).
 - Open sign-ups are disabled in Supabase.
 
 ## Next steps
 
 1. Push (ask for OK).
-2. Child view: chore grid with +/– and running balance (`chore_logs`).
-3. Chore management: add/edit/archive, price, Lucide icon picker, color.
-4. Payout: show earned amount, mark as paid / reset (create `payouts` row, set `payout_id` on logs), choose period.
-5. GitHub Pages deploy via GitHub Actions (Supabase URL/publishable key as repo secrets).
+2. Payout: show earned amount, mark as paid / reset (create `payouts` row, set `payout_id` on logs), choose period.
+3. GitHub Pages deploy via GitHub Actions (Supabase URL/publishable key as repo secrets).
 
 ## Decisions
 
