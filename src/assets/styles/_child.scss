@@ -10,9 +10,10 @@
     padding: 1rem;
   }
 
+  // Three columns so the avatar sits in the exact center of the header.
   &__header {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     gap: 1rem;
   }
@@ -28,9 +29,11 @@
 
   &__who {
     display: flex;
-    flex: 1;
-    align-items: center;
-    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  &__balance {
+    justify-self: end;
   }
 
   &__avatar {
@@ -43,16 +46,6 @@
     color: #fff;
     font-size: 1.5rem;
     font-weight: 800;
-  }
-
-  &__name {
-    margin: 0;
-  }
-
-  &__balance {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
   }
 
   &__amount {
@@ -75,11 +68,13 @@
   }
 }
 
-// Mobile-first: compact single row (44px+ tap targets), roomier from sm up.
+// Mobile-first, one row: minus / icon (+ price label) / name / plus.
+// Buttons stay at 44px, the minimum comfortable tap target on mobile.
+// Long names wrap onto more lines instead of being clipped.
 .chore {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   width: 100%;
   padding: 0.5rem;
   border: 3px solid transparent;
@@ -89,18 +84,13 @@
   transition: border-color 0.15s ease;
   user-select: none;
 
-  @include media-breakpoint-up(sm) {
-    gap: 1rem;
-    padding: 0.75rem 1rem;
-  }
-
   &--active {
     border-color: var(--bs-primary);
   }
 
   &--add {
     justify-content: center;
-    min-height: 4rem;
+    min-height: 3.5rem;
     border: 3px dashed var(--bs-border-color);
     background: none;
     box-shadow: none;
@@ -111,16 +101,29 @@
     display: grid;
     flex: none;
     place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: 0;
     border-radius: 50%;
     touch-action: manipulation; // no double-tap zoom when tapping + quickly
 
-    @include media-breakpoint-up(sm) {
-      width: 3.25rem;
-      height: 3.25rem;
+    // Plus button grows into a pill when it shows the count: "+ 3". Stays a circle at zero.
+    &--count {
+      display: flex;
+      gap: 0.125rem;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      min-width: 2.5rem;
+      padding: 0 1rem 0 0.75rem;
+      border-radius: 1.25rem;
     }
+  }
+
+  &__count {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
   }
 
   &__icon {
@@ -128,37 +131,32 @@
     display: grid;
     flex: none;
     place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    margin-bottom: 0.5rem; // room for the price label under the icon
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0.25rem -0.25rem 0.25rem -0.25rem; // tighter to the minus button; room for the price label on the corner
     border-radius: 50%;
     background-color: var(--bs-primary);
     color: #fff;
-
-    @include media-breakpoint-up(sm) {
-      width: 3.5rem;
-      height: 3.5rem;
-    }
   }
 
-  // "Sale label" showing the price per piece, pinned under the icon.
+  // "Sale label" showing the price per piece, pinned to the icon's top-right corner.
   &__price {
     position: absolute;
-    bottom: -0.55rem;
-    left: 50%;
-    transform: translateX(-50%) rotate(-6deg);
+    top: -0.6rem;
+    right: -0.75rem;
+    transform: rotate(8deg);
     white-space: nowrap;
     box-shadow: var(--bs-box-shadow-sm);
   }
 
   &__edit {
     position: absolute;
-    top: -0.5rem;
-    right: -0.5rem;
+    right: -0.4rem;
+    bottom: -0.4rem;
     display: grid;
     place-items: center;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
     padding: 0;
     border-radius: 50%;
     box-shadow: var(--bs-box-shadow-sm);
@@ -169,23 +167,5 @@
     min-width: 0;
     margin: 0;
     overflow-wrap: anywhere;
-  }
-
-  &__tally {
-    display: flex;
-    flex: none;
-    flex-direction: column;
-    align-items: center;
-    min-width: 3.5rem;
-
-    @include media-breakpoint-up(sm) {
-      min-width: 4.5rem;
-    }
-  }
-
-  &__count,
-  &__earned {
-    margin: 0;
-    line-height: 1.2;
   }
 }

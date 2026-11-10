@@ -89,13 +89,12 @@ function archive() {
         <ArrowLeft :size="22" />
       </RouterLink>
       <div class="child__who">
-        <span class="child__avatar" :style="{ backgroundColor: child?.color ?? undefined }">
+        <span class="child__avatar" :style="{ backgroundColor: child?.color ?? undefined }" :title="child?.name">
           {{ child?.name.charAt(0).toUpperCase() }}
         </span>
-        <h1 class="child__name h2">{{ child?.name ?? '…' }}</h1>
+        <h1 class="visually-hidden">{{ child?.name }}</h1>
       </div>
       <div class="child__balance">
-        <span class="text-muted h6">Balance</span>
         <span class="child__amount h2">{{ formatKr(logsStore.balance) }}</span>
       </div>
     </header>
@@ -107,28 +106,26 @@ function archive() {
         :class="{ 'chore--active': logsStore.count(chore.id) > 0 }">
         <button class="btn btn-light chore__btn" type="button" :disabled="logsStore.count(chore.id) <= 0"
           :aria-label="`Remove one ${chore.name}`" @click="tap(chore, -1)">
-          <Minus :size="24" />
+          <Minus :size="16" />
         </button>
 
         <span class="chore__icon" :style="{ backgroundColor: chore.color ?? undefined }">
-          <component :is="iconFor(chore.icon)" :size="26" />
+          <component :is="iconFor(chore.icon)" :size="18" />
           <span class="chore__price badge rounded-pill text-bg-warning">{{ formatKr(chore.price) }}</span>
-          <button v-if="managing" class="btn btn-light chore__edit" type="button" :aria-label="`Edit ${chore.name}`"
-            @click="openEdit(chore)">
-            <Pencil :size="14" />
+          <button v-if="managing" class="btn btn-light chore__edit" type="button"
+            :aria-label="`Edit ${chore.name}`" @click="openEdit(chore)">
+            <Pencil :size="12" />
           </button>
         </span>
 
-        <h2 class="chore__name h5">{{ chore.name }}</h2>
+        <h2 class="chore__name h6">{{ chore.name }}</h2>
 
-        <span class="chore__tally">
-          <span class="chore__count h3">{{ logsStore.count(chore.id) }}</span>
-          <span class="chore__earned text-muted h6">{{ formatKr(logsStore.earned(chore.id)) }}</span>
-        </span>
-
-        <button class="btn btn-primary chore__btn" type="button" :aria-label="`Add one ${chore.name}`"
+        <button class="btn btn-primary chore__btn"
+          :class="{ 'chore__btn--count': logsStore.count(chore.id) > 0 }" type="button"
+          :aria-label="`Add one ${chore.name}, ${logsStore.count(chore.id)} so far`"
           @click="tap(chore, 1)">
-          <Plus :size="24" />
+          <Plus :size="16" />
+          <span v-if="logsStore.count(chore.id) > 0" class="chore__count">{{ logsStore.count(chore.id) }}</span>
         </button>
       </li>
 
