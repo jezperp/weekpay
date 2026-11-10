@@ -12,6 +12,7 @@ const router = createRouter({
       meta: { requiresAuth: true },
       children: [
         { path: '', name: 'child', component: () => import('@/views/ChildView.vue') },
+        { path: 'payout', name: 'child-payout', component: () => import('@/views/PayoutView.vue') },
         { path: 'earned', name: 'child-earned', component: () => import('@/views/EarnedView.vue') },
         { path: 'settings', name: 'child-settings', component: () => import('@/views/SettingsView.vue') },
       ],

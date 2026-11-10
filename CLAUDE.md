@@ -55,13 +55,18 @@ src/
 - Child view: mobile-first one-row chore list (minus left, icon with price label, name, plus right; all controls 40px). No header: the earned total lives in the bottom nav's coin tab (`EarnedCounter`: counts up + bumps; coin sounds from `lib/sound.ts`, synthesized with Web Audio, toggle under Settings, stored in localStorage; flying coins deliberately skipped for now). No count, no highlight on the list; minus is disabled at 0 per chore. Every tap = one `chore_logs` row; minus reuses the price snapshot of the latest plus. Chores are shared by all children. Files: `ChildView`, `stores/chores.ts`, `stores/chorelogs.ts` (logs are fetched with `created_at` and a joined `chores(name, icon, color)`), `ChoreFormModal`, `lib/icons.ts` (curated Lucide set), `lib/format.ts` (kr), `_pickers.scss`.
 - Commits are local only, **not yet pushed** (ask the user before pushing).
 - Open sign-ups are disabled in Supabase.
+- Bottom nav is built: `ChildLayout` (loads the child's logs for the nav) + `BottomNav` (Home, Payout [`PayoutView`: to-pay amount, "Mark as paid" with confirm modal, earlier payouts that expand to per-chore detail], child avatar = chore list, Earned [live total; links to `EarnedView`: per-chore breakdown + log grouped by day, unpaid logs only], Settings). `SettingsView` (`/child/:id/settings`) holds chore add/edit/archive, child edit/delete and sign out; the old Manage mode on the chore list is gone; also holds the sound toggle and theme (System/Light/Dark via `lib/theme.ts`, `data-bs-theme`, inline script in `index.html` avoids a flash). The tab/page was renamed Manage -> Settings. Payout calls the Postgres function `pay_out(child_id)` (migration `0003_pay_out_function.sql`, SECURITY INVOKER so RLS applies, atomic; **must be run in the dashboard**). Always pays out the whole unpaid balance; no period picker or custom amounts by design.
 
 ## Next steps
 
-1. Bottom nav is built: `ChildLayout` (loads the child's logs for the nav) + `BottomNav` (Home, Payout [disabled], child avatar = chore list, Earned [live total; links to `EarnedView`: per-chore breakdown + log grouped by day, unpaid logs only], Settings). `SettingsView` (`/child/:id/settings`) holds chore add/edit/archive, child edit/delete and sign out; the old Manage mode on the chore list is gone; also holds the sound toggle and theme (System/Light/Dark via `lib/theme.ts`, `data-bs-theme`, inline script in `index.html` avoids a flash). The tab/page was renamed Manage -> Settings. Enable the Payout tab when that page exists.
-2. Push (ask for OK).
-3. Payout: show earned amount, mark as paid / reset (create `payouts` row, set `payout_id` on logs), choose period.
-4. GitHub Pages deploy via GitHub Actions (Supabase URL/publishable key as repo secrets).
+1. Push (ask for OK).
+2. GitHub Pages deploy via GitHub Actions (Supabase URL/publishable key as repo secrets).
+
+- i18n: `vue-i18n` with `src/locales/en.json` + `sv.json`; `lib/language.ts` holds the mode (System/Svenska/English, System = Swedish if the phone is Swedish else English; stored in localStorage; sets `<html lang>`). Settings page has the language switch. Money is always formatted as kr (sv-SE); dates follow the language. Add new UI text to BOTH locale files and use `t('key')`; never hardcode UI strings. Sound for payouts is `playPayout()` in `lib/sound.ts`. Nav labels are 11px because tabs are only ~72px wide on small phones (Swedish: Hem / Betala ut / Inställningar).
+
+- Settings has a "Danger zone" with *Reset history* for the current child (migration `0004_reset_child_history.sql`, **must be run in the dashboard**): deletes that child's logs + payouts via RPC `reset_child_history`; chores belong to the parent account and are never touched. Confirmation requires typing RADERA/DELETE.
+
+- Font: Fredoka (variable, self-hosted via `@fontsource-variable/fredoka`, imported in `main.ts`; set in `_variables.scss`). Rounded fonts are wider, so watch tight spots (nav labels, long chore names).
 
 ## Decisions
 

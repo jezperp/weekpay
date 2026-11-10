@@ -13,7 +13,24 @@
   &__section {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
+
+    // Headings sit close to what they introduce.
+    > h2 {
+      margin-bottom: 0;
+    }
+  }
+
+  // Segmented button group (theme, language) with fully rounded outer ends.
+  // Bootstrap squares the inner corners itself, so only the outer ones get the pill radius.
+  &__segmented .btn {
+    --bs-btn-border-radius: 50rem;
+  }
+
+  // Destructive actions, visually separated from the rest.
+  &__danger {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--bs-border-color);
   }
 
   &__heading {

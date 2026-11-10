@@ -11,7 +11,8 @@
   left: 0;
   z-index: $zindex-fixed;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  // The avatar slot is exactly as wide as the avatar; the four tabs share all the remaining width.
+  grid-template-columns: repeat(2, minmax(0, 1fr)) 3.75rem repeat(2, minmax(0, 1fr));
   align-items: end;
   max-width: 40rem;
   margin: 0 auto;
@@ -56,9 +57,20 @@
     }
 
     // The child avatar sits in the middle and rises above the bar.
+    // Avatar + name. The name sits on the same line as the other tabs' labels (hence the bottom
+    // padding), and the negative margin keeps the row height unchanged so the avatar pokes out above the bar.
     &--center {
       justify-content: flex-start;
-      margin-top: -1.5rem;
+      min-height: 0;
+      gap: 0.1875rem;
+      margin-top: -1.625rem;
+      padding-bottom: 0.6875rem;
+
+      .nav__label {
+        max-width: 4.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     &--center.nav__item--active .nav__avatar {
@@ -67,7 +79,8 @@
   }
 
   &__label {
-    font-size: 0.75rem;
+    font-size: 0.6875rem; // small enough for "Inställningar" in a ~72px tab
+    letter-spacing: -0.01em;
     font-weight: 600;
     white-space: nowrap;
   }

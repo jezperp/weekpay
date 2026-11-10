@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Pencil, Plus } from 'lucide-vue-next'
@@ -6,6 +7,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useChildrenStore, type Child, type ChildInput } from '@/stores/children'
 import ChildFormModal from '@/components/ChildFormModal.vue'
 
+const { t } = useI18n()
 const auth = useAuthStore()
 const store = useChildrenStore()
 const router = useRouter()
@@ -21,7 +23,7 @@ onMounted(async () => {
   try {
     await store.fetch()
   } catch (e) {
-    loadError.value = e instanceof Error ? e.message : 'Could not load profiles'
+    loadError.value = e instanceof Error ? e.message : t('profiles.couldNotLoad')
   }
 })
 
@@ -49,7 +51,7 @@ async function run(action: () => Promise<void>) {
     await action()
     modalOpen.value = false
   } catch (e) {
-    error.value = e instanceof Error ? e.message : 'Something went wrong'
+    error.value = e instanceof Error ? e.message : t('common.somethingWrong')
   } finally {
     saving.value = false
   }
@@ -74,7 +76,7 @@ async function logout() {
 
 <template>
   <main class="profiles">
-    <h1 class="profiles__title">Who's earning today?</h1>
+    <h1 class="page-title profiles__title">{{ t('profiles.title') }}</h1>
 
     <p v-if="loadError" class="text-danger">{{ loadError }}</p>
 
@@ -91,16 +93,16 @@ async function logout() {
       <li>
         <button class="profiles__card profiles__card--add" type="button" @click="openAdd">
           <span class="profiles__avatar"><Plus :size="48" /></span>
-          <span class="profiles__name h4">Add child</span>
+          <span class="profiles__name h4">{{ t('profiles.addChild') }}</span>
         </button>
       </li>
     </ul>
 
     <div class="profiles__actions">
       <button class="btn" :class="managing ? 'btn-primary' : 'btn-outline-secondary'" @click="managing = !managing">
-        <Pencil :size="16" class="me-1" />{{ managing ? 'Done' : 'Manage' }}
+        <Pencil :size="16" class="me-1" />{{ managing ? t('profiles.done') : t('profiles.manage') }}
       </button>
-      <button class="btn btn-link text-muted" @click="logout">Sign out</button>
+      <button class="btn btn-link text-muted" @click="logout">{{ t('profiles.signOut') }}</button>
     </div>
 
     <ChildFormModal :open="modalOpen" :child="editing" :saving="saving" :error="error" @save="save" @remove="remove"

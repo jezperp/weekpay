@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { ref, watch } from 'vue'
 import { PALETTE } from '@/lib/palette'
 import type { Child, ChildInput } from '@/stores/children'
 
+const { t } = useI18n()
 const props = defineProps<{
   open: boolean
   child: Child | null // null = add mode
@@ -44,23 +46,23 @@ function submit() {
       <div class="modal-dialog modal-dialog-centered">
         <form class="modal-content" @submit.prevent="submit">
           <div class="modal-header">
-            <h2 class="modal-title h3">{{ child ? 'Edit profile' : 'Add child' }}</h2>
-            <button type="button" class="btn-close" aria-label="Close" @click="emit('close')" />
+            <h2 class="modal-title h3">{{ child ? t('childForm.editTitle') : t('childForm.addTitle') }}</h2>
+            <button type="button" class="btn-close" :aria-label="t('common.close')" @click="emit('close')" />
           </div>
 
           <div class="modal-body">
             <div class="mb-3">
-              <label class="form-label" for="child-name">Name</label>
+              <label class="form-label" for="child-name">{{ t('common.name') }}</label>
               <input id="child-name" v-model="name" class="form-control form-control-lg" maxlength="50" required
                 autofocus autocomplete="off" />
             </div>
 
             <fieldset>
-              <legend class="form-label fs-6">Color</legend>
+              <legend class="form-label fs-6">{{ t('common.color') }}</legend>
               <div class="swatches">
                 <button v-for="c in PALETTE" :key="c" type="button" class="swatch"
                   :class="{ 'swatch--selected': c === color }" :style="{ backgroundColor: c }"
-                  :aria-label="`Color ${c}`" :aria-pressed="c === color" @click="color = c" />
+                  :aria-label="t('common.colorN', { color: c })" :aria-pressed="c === color" @click="color = c" />
               </div>
             </fieldset>
 
@@ -72,16 +74,16 @@ function submit() {
               <template v-if="child">
                 <button v-if="!confirmingDelete" type="button" class="btn btn-outline-danger"
                   @click="confirmingDelete = true">
-                  Delete
+                  {{ t('childForm.delete') }}
                 </button>
                 <button v-else type="button" class="btn btn-danger" :disabled="saving" @click="emit('remove')">
-                  Really delete?
+                  {{ t('childForm.reallyDelete') }}
                 </button>
               </template>
             </div>
             <div class="d-flex gap-2">
-              <button type="button" class="btn btn-light" @click="emit('close')">Cancel</button>
-              <button type="submit" class="btn btn-primary" :disabled="saving || !name.trim()">Save</button>
+              <button type="button" class="btn btn-light" @click="emit('close')">{{ t('common.cancel') }}</button>
+              <button type="submit" class="btn btn-primary" :disabled="saving || !name.trim()">{{ t('common.save') }}</button>
             </div>
           </div>
         </form>
