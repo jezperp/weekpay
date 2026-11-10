@@ -3,8 +3,103 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
   min-height: 100vh;
-  padding: 1rem;
+  padding: 2rem 1rem;
   text-align: center;
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 9rem;
+    padding: 0.5rem;
+    border: 0;
+    background: none;
+    color: inherit;
+    transition: transform 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.06);
+    }
+
+    &--add .profiles__avatar {
+      border: 3px dashed var(--bs-border-color);
+      background: none;
+      color: var(--bs-secondary-color);
+    }
+  }
+
+  &__avatar {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    background-color: var(--bs-primary);
+    color: #fff;
+    font-size: 3.5rem;
+    font-weight: 800;
+    box-shadow: var(--bs-box-shadow);
+  }
+
+  &__edit {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  &__name {
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}
+
+.child-modal {
+  &__colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  &__color {
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 3px solid transparent;
+    border-radius: 50%;
+
+    &--selected {
+      border-color: var(--bs-body-color);
+      box-shadow: 0 0 0 2px var(--bs-body-bg) inset;
+    }
+  }
+}
+
+.child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
 }

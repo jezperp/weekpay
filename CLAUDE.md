@@ -22,7 +22,7 @@ Kids earn their weekly allowance by doing chores. Parent picks a child (Netflix-
 
 - GitHub: `jezperp/weekpay` (**public**, personal account – not the company org)
 - Local git identity is set per-repo: Jesper Pettersson `<jezperp@gmail.com>`. Don't change global git config.
-- Because the repo is public: never commit secrets. `.env` is gitignored; only the Supabase **anon** key is used client-side, and security relies entirely on correct **RLS policies** on every table. Never use or commit the service role key.
+- Because the repo is public: never commit secrets. `.env` is gitignored; only the Supabase **publishable** key (formerly "anon") is used client-side, and security relies entirely on correct **RLS policies** on every table. Never use or commit the secret key (formerly "service role").
 
 ## Conventions
 
@@ -40,38 +40,29 @@ Kids earn their weekly allowance by doing chores. Parent picks a child (Netflix-
 src/
   assets/styles/   SCSS partials (main.scss imports Bootstrap + partials)
   lib/supabase.ts  Supabase client
-  stores/          Pinia stores (auth.ts so far)
+  stores/          Pinia stores (auth.ts, children.ts)
   router/          Routes + auth guard
-  views/           LoginView, ProfilesView (placeholder)
-  components/      (empty)
+  views/           LoginView, ProfilesView, ChildView (placeholder)
+  components/      ChildFormModal.vue
+  supabase/migrations/  SQL schema (0001_init.sql), run manually in the Supabase SQL Editor
 ```
-
-## Planned data model (draft, not yet created)
-
-- `children` (id, parent_id → auth.users, name, avatar/color)
-- `chores` (id, parent_id, name, price, icon (Lucide name), color)
-- `chore_logs` (id, child_id, chore_id, amount snapshot, delta +1/-1, created_at, payout_id nullable)
-- `payouts` (id, child_id, amount, period start/end, paid_at)
-- Payout flow: current balance = sum of unpaid logs. "Mark as paid" / "reset" attaches logs to a payout so the child starts from zero. Period (week/month/custom) is the parent's choice.
-- All tables: RLS so a parent only sees their own rows.
 
 ## Current status
 
-- Repo created locally (`~/Repos/weekpay`) and on GitHub (public), initial commit pushed (README + .gitignore).
-- Scaffolding done and `npm run build` passes: Vite + Vue 3 + TS + Router + Pinia + Bootstrap/Sass + Supabase client + Lucide installed (not yet used).
-- Login/sign-up page (email + password) and auth guard exist; `ProfilesView` is a placeholder.
-- Scaffolding and CLAUDE.md are committed locally but **not yet pushed** (ask the user before pushing).
-- No Supabase project exists yet; user must create it at supabase.com and put URL + anon key in a local `.env` (see `.env.example`). The user registers their own account via the app's sign-up mode; afterwards disable open sign-ups in Supabase while the repo is public.
+- Supabase project exists; `.env` (gitignored) has `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`. Login works; user account created.
+- Schema in `supabase/migrations/0001_init.sql` (children, chores, payouts, chore_logs + RLS) and `0002_grants.sql` (GRANTs to `authenticated`; new Supabase projects don't auto-grant, so every new table needs a GRANT too) have been run in the dashboard. Money is `numeric(10,2)`; `chore_logs.amount` / `payouts.amount` are snapshots; chores are archived (`archived`) instead of deleted; balance = `sum(amount * delta)` over logs with `payout_id is null`.
+- Profile picker done: Netflix-style grid, "Add child" modal, "Manage" mode with pencil to edit/delete (`ProfilesView`, `ChildFormModal`, `stores/children.ts`). Colors from `lib/palette.ts`; no avatar images yet (initial letter).
+- `/child/:id` (`ChildView`) is a placeholder.
+- Commits are local only, **not yet pushed** (ask the user before pushing).
+- Open sign-ups are disabled in Supabase.
 
 ## Next steps
 
-1. Push the scaffolding commit to GitHub (ask the user for OK first).
-2. Supabase schema as SQL migration files in `supabase/migrations/` (tables above + RLS policies).
-3. Profile picker (Netflix-style) + add child flow.
-4. Child view: chore grid with +/– and running balance.
-5. Chore management: add/edit/delete, price, Lucide icon picker, color.
-6. Payout: show earned amount, mark as paid / reset, choose period.
-7. GitHub Pages deploy via GitHub Actions (Supabase URL/anon key as repo secrets).
+1. Push (ask for OK).
+2. Child view: chore grid with +/– and running balance (`chore_logs`).
+3. Chore management: add/edit/archive, price, Lucide icon picker, color.
+4. Payout: show earned amount, mark as paid / reset (create `payouts` row, set `payout_id` on logs), choose period.
+5. GitHub Pages deploy via GitHub Actions (Supabase URL/publishable key as repo secrets).
 
 ## Decisions
 
