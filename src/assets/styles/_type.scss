@@ -9,5 +9,7 @@ p { font-size: 1rem; }
 
 // Big, centered title at the top of every page (use on the page's <h1>).
 .page-title { margin-bottom: 0.25rem; text-align: center; }
+// Fine print: small, light and muted (e.g. chore descriptions).
+.text-fine { font-size: 0.8125rem; font-weight: 300; line-height: 1.3; color: var(--bs-secondary-color); }
 .lead { font-size: 1.25rem; font-weight: 400; }
 .text-muted { color: var(--bs-secondary-color) !important; }

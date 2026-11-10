@@ -53,7 +53,10 @@ async function tap(chore: Chore, delta: 1 | -1) {
           <span class="chore__price badge rounded-pill text-bg-warning">{{ formatKr(chore.price) }}</span>
         </span>
 
-        <h2 class="chore__name h6">{{ chore.name }}</h2>
+        <div class="chore__text">
+          <h2 class="chore__name h6">{{ chore.name }}</h2>
+          <p v-if="chore.description" class="chore__description text-fine">{{ chore.description }}</p>
+        </div>
 
         <button class="btn btn-primary chore__btn" type="button" :aria-label="t('chores.addOne', { name: chore.name })"
           @click="tap(chore, 1)">

@@ -20,6 +20,7 @@ const emit = defineEmits<{
 }>()
 
 const name = ref('')
+const description = ref('')
 const price = ref<number | null>(null)
 const color = ref<string>(PALETTE[0])
 const icon = ref<string>(ICON_NAMES[0])
@@ -31,6 +32,7 @@ watch(
   (open) => {
     if (!open) return
     name.value = props.chore?.name ?? ''
+    description.value = props.chore?.description ?? ''
     price.value = props.chore?.price ?? null
     color.value = props.chore?.color ?? PALETTE[Math.floor(Math.random() * PALETTE.length)]
     icon.value = props.chore?.icon ?? ICON_NAMES[0]
@@ -41,7 +43,12 @@ watch(
 function submit() {
   const trimmed = name.value.trim()
   if (!trimmed || price.value === null || price.value < 0) return
-  emit('save', { name: trimmed, price: price.value, color: color.value, icon: icon.value })
+  emit('save', {
+    name: trimmed,
+    description: description.value.trim() || null,
+    price: price.value, color: color.value,
+    icon: icon.value,
+  })
 }
 </script>
 
@@ -67,6 +74,11 @@ function submit() {
                 <input id="chore-price" v-model.number="price" type="number" min="0" step="0.5" inputmode="decimal"
                   class="form-control form-control-lg" required />
               </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="chore-description">{{ t('choreForm.description') }}</label>
+              <textarea id="chore-description" v-model="description" class="form-control" rows="2" maxlength="200" />
             </div>
 
             <fieldset class="mb-3">

@@ -107,10 +107,14 @@
     box-shadow: var(--bs-box-shadow-sm);
   }
 
-  &__name {
+  &__text {
     flex: 1;
     min-width: 0;
-    margin: 0;
     overflow-wrap: anywhere;
+  }
+
+  &__name,
+  &__description {
+    margin: 0;
   }
 }

@@ -150,7 +150,10 @@ async function logout() {
             <span class="settings__icon" :style="{ backgroundColor: chore.color ?? undefined }">
               <component :is="iconFor(chore.icon)" :size="18" />
             </span>
-            <span class="settings__name h6">{{ chore.name }}</span>
+            <span class="settings__text">
+              <span class="settings__name h6">{{ chore.name }}</span>
+              <span v-if="chore.description" class="settings__description text-fine">{{ chore.description }}</span>
+            </span>
             <span class="settings__price text-muted">{{ formatKr(chore.price) }}</span>
             <ChevronRight :size="18" class="text-muted" />
           </button>

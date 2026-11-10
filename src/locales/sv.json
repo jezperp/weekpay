@@ -39,6 +39,7 @@
   "choreForm": {
     "addTitle": "Lägg till syssla",
     "editTitle": "Redigera syssla",
+    "description": "Beskrivning (valfritt)",
     "price": "Pris (kr)",
     "remove": "Ta bort",
     "reallyRemove": "Ta bort på riktigt?"

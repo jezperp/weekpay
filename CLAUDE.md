@@ -53,20 +53,20 @@ src/
 - Schema in `supabase/migrations/0001_init.sql` (children, chores, payouts, chore_logs + RLS) and `0002_grants.sql` (GRANTs to `authenticated`; new Supabase projects don't auto-grant, so every new table needs a GRANT too) have been run in the dashboard. Money is `numeric(10,2)`; `chore_logs.amount` / `payouts.amount` are snapshots; chores are archived (`archived`) instead of deleted; balance = `sum(amount * delta)` over logs with `payout_id is null`.
 - Profile picker done: Netflix-style grid, "Add child" modal, "Manage" mode with pencil to edit/delete (`ProfilesView`, `ChildFormModal`, `stores/children.ts`). Colors from `lib/palette.ts`; no avatar images yet (initial letter).
 - Child view: mobile-first one-row chore list (minus left, icon with price label, name, plus right; all controls 40px). No header: the earned total lives in the bottom nav's coin tab (`EarnedCounter`: counts up + bumps; coin sounds from `lib/sound.ts`, synthesized with Web Audio, toggle under Settings, stored in localStorage; flying coins deliberately skipped for now). No count, no highlight on the list; minus is disabled at 0 per chore. Every tap = one `chore_logs` row; minus reuses the price snapshot of the latest plus. Chores are shared by all children. Files: `ChildView`, `stores/chores.ts`, `stores/chorelogs.ts` (logs are fetched with `created_at` and a joined `chores(name, icon, color)`), `ChoreFormModal`, `lib/icons.ts` (curated Lucide set), `lib/format.ts` (kr), `_pickers.scss`.
-- Commits are local only, **not yet pushed** (ask the user before pushing).
+- Live at https://jezperp.github.io/weekpay/ (GitHub Pages via `.github/workflows/deploy.yml`, deploys on every push to main). Verified working by the user. All commits are pushed.
 - Open sign-ups are disabled in Supabase.
 - Bottom nav is built: `ChildLayout` (loads the child's logs for the nav) + `BottomNav` (Home, Payout [`PayoutView`: to-pay amount, "Mark as paid" with confirm modal, earlier payouts that expand to per-chore detail], child avatar = chore list, Earned [live total; links to `EarnedView`: per-chore breakdown + log grouped by day, unpaid logs only], Settings). `SettingsView` (`/child/:id/settings`) holds chore add/edit/archive, child edit/delete and sign out; the old Manage mode on the chore list is gone; also holds the sound toggle and theme (System/Light/Dark via `lib/theme.ts`, `data-bs-theme`, inline script in `index.html` avoids a flash). The tab/page was renamed Manage -> Settings. Payout calls the Postgres function `pay_out(child_id)` (migration `0003_pay_out_function.sql`, SECURITY INVOKER so RLS applies, atomic; **must be run in the dashboard**). Always pays out the whole unpaid balance; no period picker or custom amounts by design.
 
 ## Next steps
 
-1. Push (ask for OK).
-2. GitHub Pages deploy: workflow is in `.github/workflows/deploy.yml` (builds on push to main; needs repo secrets `VITE_SUPABASE_URL` + `VITE_SUPABASE_PUBLISHABLE_KEY`, Pages source = GitHub Actions, Supabase Site URL/Redirect URL = `https://jezperp.github.io/weekpay/`). Verify the first deploy after pushing.
+No planned work left; the core flow (profiles, chores, earn, payout, history, settings, sv/en, dark mode) is live. Ideas to discuss with the user:
 
-- i18n: `vue-i18n` with `src/locales/en.json` + `sv.json`; `lib/language.ts` holds the mode (System/Svenska/English, System = Swedish if the phone is Swedish else English; stored in localStorage; sets `<html lang>`). Settings page has the language switch. Money is always formatted as kr (sv-SE); dates follow the language. Add new UI text to BOTH locale files and use `t('key')`; never hardcode UI strings. Sound for payouts is `playPayout()` in `lib/sound.ts`. Nav labels are 11px because tabs are only ~72px wide on small phones (Swedish: Hem / Betala ut / Inställningar).
+- Flying-coin animation on tap; undo/delete single log entries from the Earned log.
+- Avatar images/emoji for children; per-child chores (chores are shared today).
+- PWA / "add to home screen" icon and offline support.
+- Custom domain or move to Vercel (then `base: '/'`).
 
-- Settings has a "Danger zone" with *Reset history* for the current child (migration `0004_reset_child_history.sql`, **must be run in the dashboard**): deletes that child's logs + payouts via RPC `reset_child_history`; chores belong to the parent account and are never touched. Confirmation requires typing RADERA/DELETE.
-
-- Font: Fredoka (variable, self-hosted via `@fontsource-variable/fredoka`, imported in `main.ts`; set in `_variables.scss`). Rounded fonts are wider, so watch tight spots (nav labels, long chore names).
+- Chores have an optional `description` (max 200 chars; migration `0005_chore_description.sql`, **must be run in the dashboard**), shown under the name in the chore list and in Settings with the `.text-fine` helper.
 
 ## Decisions
 

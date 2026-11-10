@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase'
 export interface Chore {
   id: string
   name: string
+  description: string | null
   price: number
   icon: string | null
   color: string | null
@@ -12,7 +13,7 @@ export interface Chore {
 
 export type ChoreInput = Omit<Chore, 'id'>
 
-const COLUMNS = 'id, name, price, icon, color'
+const COLUMNS = 'id, name, description, price, icon, color'
 
 export const useChoresStore = defineStore('chores', () => {
   const chores = ref<Chore[]>([])

@@ -39,6 +39,7 @@
   "choreForm": {
     "addTitle": "Add chore",
     "editTitle": "Edit chore",
+    "description": "Description (optional)",
     "price": "Price (kr)",
     "remove": "Remove",
     "reallyRemove": "Really remove?"
