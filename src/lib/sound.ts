@@ -21,11 +21,18 @@ function getContext(): AudioContext | null {
   return ctx
 }
 
-function tone(c: AudioContext, freq: number, delay: number, duration: number, volume: number) {
+function tone(
+  c: AudioContext,
+  freq: number,
+  delay: number,
+  duration: number,
+  volume: number,
+  type: OscillatorType = 'sine',
+) {
   const t = c.currentTime + delay
   const osc = c.createOscillator()
   const gain = c.createGain()
-  osc.type = 'sine'
+  osc.type = type
   osc.frequency.value = freq
   gain.gain.setValueAtTime(0.0001, t)
   gain.gain.linearRampToValueAtTime(volume, t + 0.005)
@@ -52,4 +59,18 @@ export function playUndo() {
   if (!c) return
   tone(c, 523, 0, 0.15, 0.12) // C5
   tone(c, 392, 0.07, 0.2, 0.1) // G4
+}
+
+// Payout: a cheerful major-key "ta-da" that bounces upwards (about 0.4 seconds).
+export function playPayout() {
+  if (!soundEnabled.value) return
+  const c = getContext()
+  if (!c) return
+
+  // Bouncy rising run in C major: C6 E6 G6 C7
+  ;[1047, 1319, 1568, 2093].forEach((f, i) => tone(c, f, i * 0.08, 0.2, 0.14, 'triangle'))
+
+  // Sparkles on top
+  tone(c, 3136, 0.3, 0.1, 0.06) // G7
+  tone(c, 3951, 0.36, 0.1, 0.06) // B7
 }

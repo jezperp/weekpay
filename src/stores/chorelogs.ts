@@ -13,7 +13,7 @@ export interface ChoreLog {
   chores: { name: string; icon: string | null; color: string | null } | null
 }
 
-const COLUMNS = 'id, chore_id, amount, delta, created_at, chores(name, icon, color)'
+export const CHORE_LOG_COLUMNS = 'id, chore_id, amount, delta, created_at, chores(name, icon, color)'
 
 const round2 = (n: number) => Math.round(n * 100) / 100
 
@@ -48,7 +48,7 @@ export const useChoreLogsStore = defineStore('chorelogs', () => {
     reset(id)
     const { data, error } = await supabase
       .from('chore_logs')
-      .select(COLUMNS)
+      .select(CHORE_LOG_COLUMNS)
       .eq('child_id', id)
       .is('payout_id', null)
       .order('created_at')
@@ -95,7 +95,7 @@ export const useChoreLogsStore = defineStore('chorelogs', () => {
     const { data, error } = await supabase
       .from('chore_logs')
       .insert({ child_id: id, chore_id: chore.id, amount, delta })
-      .select(COLUMNS)
+      .select(CHORE_LOG_COLUMNS)
       .single()
     const i = logs.value.findIndex((l) => l.id === temp.id)
     if (error) {
