@@ -1,0 +1,114 @@
+{
+  "common": {
+    "cancel": "Avbryt",
+    "close": "Stäng",
+    "color": "Färg",
+    "colorN": "Färg {color}",
+    "icon": "Ikon",
+    "name": "Namn",
+    "save": "Spara",
+    "somethingWrong": "Något gick fel",
+    "couldNotSave": "Kunde inte spara",
+    "couldNotLoad": "Kunde inte hämta data"
+  },
+  "login": {
+    "signInPrompt": "Logga in för att fortsätta",
+    "createPrompt": "Skapa ditt konto",
+    "email": "E-post",
+    "password": "Lösenord",
+    "signIn": "Logga in",
+    "signUp": "Skapa konto",
+    "noAccount": "Inget konto? Skapa konto",
+    "haveAccount": "Har du redan ett konto? Logga in",
+    "checkEmail": "Kolla din e-post för att bekräfta kontot."
+  },
+  "profiles": {
+    "title": "Vem tjänar pengar idag?",
+    "addChild": "Lägg till barn",
+    "manage": "Hantera",
+    "done": "Klar",
+    "signOut": "Logga ut",
+    "couldNotLoad": "Kunde inte hämta profiler"
+  },
+  "childForm": {
+    "addTitle": "Lägg till barn",
+    "editTitle": "Redigera profil",
+    "delete": "Ta bort",
+    "reallyDelete": "Ta bort på riktigt?"
+  },
+  "choreForm": {
+    "addTitle": "Lägg till syssla",
+    "editTitle": "Redigera syssla",
+    "price": "Pris (kr)",
+    "remove": "Ta bort",
+    "reallyRemove": "Ta bort på riktigt?"
+  },
+  "chores": {
+    "title": "Sysslor",
+    "removeOne": "Ta bort en {name}",
+    "addOne": "Lägg till en {name}",
+    "empty": "Inga sysslor än. Lägg till den första under Inställningar."
+  },
+  "nav": {
+    "main": "Huvudmeny",
+    "switchProfile": "Byt profil",
+    "payout": "Betala ut",
+    "settings": "Inställningar",
+    "earnedAria": "Intjänat: {amount}",
+    "choresAria": "Sysslor",
+    "childChoresAria": "Sysslor för {name}"
+  },
+  "earned": {
+    "title": "Intjänat",
+    "byChore": "Per syssla",
+    "total": "Totalt",
+    "log": "Logg",
+    "nothing": "Inget intjänat än.",
+    "today": "Idag",
+    "yesterday": "Igår",
+    "removedChore": "Borttagen syssla"
+  },
+  "payout": {
+    "title": "Utbetalning",
+    "toPayOut": "Att betala ut",
+    "since": "Intjänat sedan {date}",
+    "nothing": "Inget att betala ut än.",
+    "markAsPaid": "Markera som betalt",
+    "paidOut": "Utbetalt {amount}. Saldot är nollställt.",
+    "earlier": "Tidigare utbetalningar",
+    "couldNotLoad": "Kunde inte hämta utbetalningar",
+    "couldNotLoadDetails": "Kunde inte hämta detaljer",
+    "confirmTitle": "Markera som betalt?",
+    "paying": "Betalar ut",
+    "confirmBody": "Allt som intjänats sedan {date}.",
+    "confirmYes": "Ja, betalt"
+  },
+  "settings": {
+    "title": "Inställningar",
+    "appearance": "Utseende",
+    "theme": "Tema",
+    "system": "System",
+    "light": "Ljust",
+    "dark": "Mörkt",
+    "language": "Språk",
+    "sound": "Ljud",
+    "coinSounds": "Myntljud",
+    "chores": "Sysslor",
+    "addChore": "Lägg till syssla",
+    "noChores": "Inga sysslor än.",
+    "profile": "Profil",
+    "signOut": "Logga ut",
+    "couldNotLoad": "Kunde inte hämta sysslor"
+  },
+  "reset": {
+    "button": "Återställ historik",
+    "dangerZone": "Farozon",
+    "description": "Raderar allt intjänat, loggen och alla utbetalningar för det här barnet. Sysslor och profilen behålls.",
+    "title": "Återställa historik?",
+    "warning": "Detta raderar för alltid allt intjänat, loggen och alla utbetalningar för {name}. Sysslor och profilen behålls. Det går inte att ångra.",
+    "typePrompt": "Skriv",
+    "word": "RADERA",
+    "confirm": "Radera historik",
+    "done": "Historiken för {name} är återställd."
+  }
+}

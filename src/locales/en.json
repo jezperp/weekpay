@@ -1,0 +1,114 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "color": "Color",
+    "colorN": "Color {color}",
+    "icon": "Icon",
+    "name": "Name",
+    "save": "Save",
+    "somethingWrong": "Something went wrong",
+    "couldNotSave": "Could not save",
+    "couldNotLoad": "Could not load data"
+  },
+  "login": {
+    "signInPrompt": "Sign in to continue",
+    "createPrompt": "Create your account",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "noAccount": "No account? Sign up",
+    "haveAccount": "Have an account? Sign in",
+    "checkEmail": "Check your email to confirm your account."
+  },
+  "profiles": {
+    "title": "Who's earning today?",
+    "addChild": "Add child",
+    "manage": "Manage",
+    "done": "Done",
+    "signOut": "Sign out",
+    "couldNotLoad": "Could not load profiles"
+  },
+  "childForm": {
+    "addTitle": "Add child",
+    "editTitle": "Edit profile",
+    "delete": "Delete",
+    "reallyDelete": "Really delete?"
+  },
+  "choreForm": {
+    "addTitle": "Add chore",
+    "editTitle": "Edit chore",
+    "price": "Price (kr)",
+    "remove": "Remove",
+    "reallyRemove": "Really remove?"
+  },
+  "chores": {
+    "title": "Chores",
+    "removeOne": "Remove one {name}",
+    "addOne": "Add one {name}",
+    "empty": "No chores yet. Add the first one under Settings."
+  },
+  "nav": {
+    "main": "Main",
+    "switchProfile": "Profiles",
+    "payout": "Payout",
+    "settings": "Settings",
+    "earnedAria": "Earned: {amount}",
+    "choresAria": "Chores",
+    "childChoresAria": "Chores for {name}"
+  },
+  "earned": {
+    "title": "Earned",
+    "byChore": "By chore",
+    "total": "Total",
+    "log": "Log",
+    "nothing": "Nothing earned yet.",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "removedChore": "Removed chore"
+  },
+  "payout": {
+    "title": "Payout",
+    "toPayOut": "To pay out",
+    "since": "Earned since {date}",
+    "nothing": "Nothing to pay out yet.",
+    "markAsPaid": "Mark as paid",
+    "paidOut": "Paid out {amount}. Balance is back to zero.",
+    "earlier": "Earlier payouts",
+    "couldNotLoad": "Could not load payouts",
+    "couldNotLoadDetails": "Could not load details",
+    "confirmTitle": "Mark as paid?",
+    "paying": "Paying out",
+    "confirmBody": "Everything earned since {date}.",
+    "confirmYes": "Yes, paid"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language",
+    "sound": "Sound",
+    "coinSounds": "Coin sounds",
+    "chores": "Chores",
+    "addChore": "Add chore",
+    "noChores": "No chores yet.",
+    "profile": "Profile",
+    "signOut": "Sign out",
+    "couldNotLoad": "Could not load chores"
+  },
+  "reset": {
+    "button": "Reset history",
+    "dangerZone": "Danger zone",
+    "description": "Deletes everything earned, the log and all payouts for this child. Chores and the profile are kept.",
+    "title": "Reset history?",
+    "warning": "This permanently deletes all earnings, the log and all payouts for {name}. Chores and the profile are kept. This cannot be undone.",
+    "typePrompt": "Type",
+    "word": "DELETE",
+    "confirm": "Delete history",
+    "done": "History for {name} was reset."
+  }
+}
