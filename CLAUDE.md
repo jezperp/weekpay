@@ -60,7 +60,7 @@ src/
 ## Next steps
 
 1. Push (ask for OK).
-2. GitHub Pages deploy via GitHub Actions (Supabase URL/publishable key as repo secrets).
+2. GitHub Pages deploy: workflow is in `.github/workflows/deploy.yml` (builds on push to main; needs repo secrets `VITE_SUPABASE_URL` + `VITE_SUPABASE_PUBLISHABLE_KEY`, Pages source = GitHub Actions, Supabase Site URL/Redirect URL = `https://jezperp.github.io/weekpay/`). Verify the first deploy after pushing.
 
 - i18n: `vue-i18n` with `src/locales/en.json` + `sv.json`; `lib/language.ts` holds the mode (System/Svenska/English, System = Swedish if the phone is Swedish else English; stored in localStorage; sets `<html lang>`). Settings page has the language switch. Money is always formatted as kr (sv-SE); dates follow the language. Add new UI text to BOTH locale files and use `t('key')`; never hardcode UI strings. Sound for payouts is `playPayout()` in `lib/sound.ts`. Nav labels are 11px because tabs are only ~72px wide on small phones (Swedish: Hem / Betala ut / Inställningar).
 
