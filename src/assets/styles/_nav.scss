@@ -11,8 +11,8 @@
   left: 0;
   z-index: $zindex-fixed;
   display: grid;
-  // The avatar slot is exactly as wide as the avatar; the four tabs share all the remaining width.
-  grid-template-columns: repeat(2, minmax(0, 1fr)) 3.75rem repeat(2, minmax(0, 1fr));
+  // Five equally wide slots; the avatar sits centered in the middle one.
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: end;
   max-width: 40rem;
   margin: 0 auto;
