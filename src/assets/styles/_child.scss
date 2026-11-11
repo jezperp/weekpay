@@ -70,14 +70,7 @@
 
   // "Sale label" showing the price per piece, pinned to the icon's top-right corner.
   &__price {
-    position: absolute;
-    top: -0.5rem;
-    right: -0.6rem;
-    padding: 0.2rem 0.4rem;
-    font-size: 0.625rem;
-    transform: rotate(8deg);
-    white-space: nowrap;
-    box-shadow: var(--bs-box-shadow-sm);
+    @include price-label;
   }
 
   &__edit {

@@ -1,6 +1,7 @@
 // Read-only chore detail modal (full name and description).
 .detail {
   &__icon {
+    position: relative;
     display: grid;
     flex: none;
     place-items: center;
@@ -14,19 +15,18 @@
   &__title {
     flex: 1;
     min-width: 0;
-    margin: 0 0 0 0.75rem;
+    margin: 0 0 0 1.25rem; // a bit more room for the price label on the icon
+    line-height: 1.2;
     overflow-wrap: anywhere;
   }
 
   &__price {
-    margin: 0 0 0.75rem;
-    color: var(--bs-success);
-    font-size: 1.5rem;
-    font-weight: 700;
+    @include price-label;
   }
 
   &__description {
     margin: 0;
+    line-height: 1.3;
     overflow-wrap: anywhere;
     white-space: pre-line;
   }

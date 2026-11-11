@@ -15,3 +15,15 @@
     --bs-btn-disabled-border-color: transparent;
   }
 }
+
+// "Sale label": the price per piece, pinned to an icon's top-right corner (use with .badge.text-bg-warning).
+@mixin price-label {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.6rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.625rem;
+  transform: rotate(8deg);
+  white-space: nowrap;
+  box-shadow: var(--bs-box-shadow-sm);
+}

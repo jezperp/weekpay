@@ -19,13 +19,13 @@ const { t } = useI18n()
           <div class="modal-header">
             <span class="detail__icon" :style="{ backgroundColor: chore.color ?? undefined }">
               <component :is="iconFor(chore.icon)" :size="22" />
+              <span class="detail__price badge rounded-pill text-bg-warning">{{ formatKr(chore.price) }}</span>
             </span>
             <h2 class="modal-title h4 detail__title">{{ chore.name }}</h2>
             <button type="button" class="btn-close" :aria-label="t('common.close')" @click="emit('close')" />
           </div>
-          <div class="modal-body">
-            <p class="detail__price">{{ formatKr(chore.price) }}</p>
-            <p v-if="chore.description" class="detail__description">{{ chore.description }}</p>
+          <div v-if="chore.description" class="modal-body">
+            <p class="detail__description">{{ chore.description }}</p>
           </div>
         </div>
       </div>
