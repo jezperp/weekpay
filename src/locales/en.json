@@ -61,7 +61,6 @@
   },
   "earned": {
     "title": "Earned",
-    "byChore": "By chore",
     "total": "Total",
     "log": "History",
     "nothing": "Nothing earned yet.",

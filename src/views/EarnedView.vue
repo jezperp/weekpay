@@ -99,7 +99,6 @@ function signed(log: ChoreLog) {
     <p v-if="errorMsg" class="text-danger">{{ errorMsg }}</p>
 
     <section v-if="summary.length" class="earned-page__section">
-      <h2 class="h4">{{ t('earned.byChore') }}</h2>
       <ul class="earned-page__card">
         <li v-for="row in summary" :key="row.id" class="entry">
           <span class="entry__icon" :style="{ backgroundColor: row.color ?? undefined }">
