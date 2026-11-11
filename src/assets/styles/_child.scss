@@ -50,22 +50,8 @@
     border-radius: 50%;
     touch-action: manipulation; // no double-tap zoom when tapping + quickly
 
-    // btn-light stays bright in dark mode; tone the minus button down to a mid grey that still stands out from the card.
     &.btn-light {
-      [data-bs-theme='dark'] & {
-        --bs-btn-color: var(--bs-body-color);
-        --bs-btn-bg: var(--bs-border-color);
-        --bs-btn-border-color: transparent;
-        --bs-btn-hover-color: var(--bs-body-color);
-        --bs-btn-hover-bg: var(--bs-gray-600);
-        --bs-btn-hover-border-color: transparent;
-        --bs-btn-active-color: var(--bs-body-color);
-        --bs-btn-active-bg: var(--bs-gray-600);
-        --bs-btn-active-border-color: transparent;
-        --bs-btn-disabled-color: var(--bs-secondary-color);
-        --bs-btn-disabled-bg: var(--bs-secondary-bg);
-        --bs-btn-disabled-border-color: transparent;
-      }
+      @include dark-btn-light;
     }
   }
 

@@ -95,6 +95,53 @@
     text-align: right;
   }
 
+  // Chore name with its earned sum below, plus a +/- stepper (Earned page, "By chore").
+  &__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+
+    .entry__name {
+      flex: none;
+    }
+  }
+
+  &__sum {
+    color: var(--bs-success);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__stepper {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__count {
+    min-width: 2ch;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+
+  &__btn {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border-radius: 50%;
+    touch-action: manipulation;
+
+    &.btn-light {
+      @include dark-btn-light;
+    }
+  }
+
   // Taking one away: dimmed so the undo stands out from earnings.
   &--undo {
     opacity: 0.6;

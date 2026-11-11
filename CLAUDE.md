@@ -59,6 +59,8 @@ src/
 
 - Multi-parent (level 1, migration `0006_families.sql`, **must be run in the dashboard**): `families` + `family_members`; `children`/`chores` have `family_id` (default `my_family_id()`), RLS is by family; `parent_id` is only "created by". Clients can't add/remove members (parents can't remove each other). A partner is added manually: create the user in the dashboard, then run `supabase/manual/add_partner.sql` (placeholders only, never commit real e-mails). **Before a public launch** still needed: invite flow, auto-created family for new sign-ups, re-opening sign-ups (see memory `project-multi-parent-invites`).
 
+- Earned page "By chore" rows have +/- steppers (corrections are logged as normal +1/-1 rows; rows touched in a visit stay visible at 0; archived chores reuse their latest plus price).
+
 ## Next steps
 
 No planned work left; the core flow (profiles, chores, earn, payout, history, settings, sv/en, dark mode) is live. Ideas to discuss with the user:

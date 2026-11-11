@@ -10,8 +10,9 @@ export interface ChoreSummary {
   sum: number
 }
 
-// Count and money per chore. Chores netting out to zero are left out. Biggest sum first.
-export function summarize(logs: ChoreLog[]): ChoreSummary[] {
+// Count and money per chore. Chores netting out to zero are left out unless listed in `keepIds`
+// (so a row doesn't vanish while it is being adjusted). Biggest sum first.
+export function summarize(logs: ChoreLog[], keepIds?: ReadonlySet<string>): ChoreSummary[] {
   const map = new Map<string, ChoreSummary>()
   for (const l of logs) {
     const row = map.get(l.chore_id) ?? {
@@ -27,7 +28,7 @@ export function summarize(logs: ChoreLog[]): ChoreSummary[] {
     map.set(l.chore_id, row)
   }
   return [...map.values()]
-    .filter((r) => r.count !== 0)
+    .filter((r) => r.count !== 0 || keepIds?.has(r.id))
     .map((r) => ({ ...r, sum: Math.round(r.sum * 100) / 100 }))
     .sort((a, b) => b.sum - a.sum)
 }
