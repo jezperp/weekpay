@@ -4,6 +4,8 @@ import { useAuthStore } from '@/stores/auth'
 // Hash history avoids 404 on reload when hosted on GitHub Pages.
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
+  // New page/tab: start at the top. Back/forward: restore where the user was.
+  scrollBehavior: (_to, _from, saved) => saved ?? { top: 0 },
   routes: [
     { path: '/', name: 'profiles', component: () => import('@/views/ProfilesView.vue'), meta: { requiresAuth: true } },
     {
