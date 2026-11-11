@@ -68,6 +68,8 @@ No planned work left; the core flow (profiles, chores, earn, payout, history, se
 
 - Chores have an optional `description` (max 200 chars; migration `0005_chore_description.sql`, **must be run in the dashboard**), shown under the name in the chore list and in Settings with the `.text-fine` helper.
 
+- Chore name + description are single-line with ellipsis in the lists; tapping the text in the chore list opens `ChoreDetailModal` with the full text.
+
 ## Decisions
 
 - Name: WeekPay. Lucide for icons. Auth from the start (email/password via Supabase). Hash-mode router for GitHub Pages. GitHub Pages first, maybe Vercel later.

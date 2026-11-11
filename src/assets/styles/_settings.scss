@@ -84,7 +84,9 @@
     flex: 1;
     min-width: 0;
     margin: 0;
-    overflow-wrap: anywhere;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   // Chore name with an optional description below it.
@@ -93,10 +95,19 @@
     flex: 1;
     flex-direction: column;
     min-width: 0;
-    overflow-wrap: anywhere;
+  }
+
+  &__description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__price {
     flex: none;
+    color: var(--bs-success);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
   }
 }

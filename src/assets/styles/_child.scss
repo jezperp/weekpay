@@ -107,14 +107,25 @@
     box-shadow: var(--bs-box-shadow-sm);
   }
 
+  // Tappable text block (opens the detail modal). Name and description are one line each.
   &__text {
+    display: flex;
     flex: 1;
+    flex-direction: column;
     min-width: 0;
-    overflow-wrap: anywhere;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    text-align: left;
   }
 
   &__name,
   &__description {
+    display: block;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

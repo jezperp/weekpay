@@ -154,7 +154,7 @@ async function logout() {
               <span class="settings__name h6">{{ chore.name }}</span>
               <span v-if="chore.description" class="settings__description text-fine">{{ chore.description }}</span>
             </span>
-            <span class="settings__price text-muted">{{ formatKr(chore.price) }}</span>
+            <span class="settings__price">{{ formatKr(chore.price) }}</span>
             <ChevronRight :size="18" class="text-muted" />
           </button>
         </li>

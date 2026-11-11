@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue'
 import { Minus, Plus } from 'lucide-vue-next'
 import { useChoresStore, type Chore } from '@/stores/chores'
 import { useChoreLogsStore } from '@/stores/chorelogs'
+import ChoreDetailModal from '@/components/ChoreDetailModal.vue'
 import { iconFor } from '@/lib/icons'
 import { formatKr } from '@/lib/format'
 import { playCoin, playUndo } from '@/lib/sound'
@@ -13,6 +14,7 @@ const choresStore = useChoresStore()
 const logsStore = useChoreLogsStore()
 
 const loadError = ref('')
+const selected = ref<Chore | null>(null)
 
 onMounted(async () => {
   try {
@@ -53,10 +55,11 @@ async function tap(chore: Chore, delta: 1 | -1) {
           <span class="chore__price badge rounded-pill text-bg-warning">{{ formatKr(chore.price) }}</span>
         </span>
 
-        <div class="chore__text">
-          <h2 class="chore__name h6">{{ chore.name }}</h2>
-          <p v-if="chore.description" class="chore__description text-fine">{{ chore.description }}</p>
-        </div>
+        <!-- One line each; tap to read the full text in a modal -->
+        <button class="chore__text" type="button" @click="selected = chore">
+          <span class="chore__name h6">{{ chore.name }}</span>
+          <span v-if="chore.description" class="chore__description text-fine">{{ chore.description }}</span>
+        </button>
 
         <button class="btn btn-primary chore__btn" type="button" :aria-label="t('chores.addOne', { name: chore.name })"
           @click="tap(chore, 1)">
@@ -68,5 +71,7 @@ async function tap(chore: Chore, delta: 1 | -1) {
     <p v-if="choresStore.loaded && !choresStore.chores.length" class="text-muted">
       {{ t('chores.empty') }}
     </p>
+
+    <ChoreDetailModal :chore="selected" @close="selected = null" />
   </div>
 </template>
