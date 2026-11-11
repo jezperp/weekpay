@@ -33,7 +33,7 @@ export const useChildrenStore = defineStore('children', () => {
   }
 
   async function add(input: ChildInput) {
-    // parent_id is filled in by the database (default auth.uid()).
+    // family_id (and parent_id = "created by") are filled in by the database defaults.
     const { data, error } = await supabase
       .from('children')
       .insert(input)

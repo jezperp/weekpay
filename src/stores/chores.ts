@@ -31,7 +31,7 @@ export const useChoresStore = defineStore('chores', () => {
   }
 
   async function add(input: ChoreInput) {
-    // parent_id is filled in by the database (default auth.uid()).
+    // family_id (and parent_id = "created by") are filled in by the database defaults.
     const { data, error } = await supabase.from('chores').insert(input).select(COLUMNS).single()
     if (error) throw error
     chores.value.push(data)
