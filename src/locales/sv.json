@@ -110,5 +110,12 @@
     "word": "RADERA",
     "confirm": "Radera historik",
     "done": "Historiken för {name} är återställd."
+  },
+  "done": {
+    "title": "Bra jobbat!",
+    "text": "Du har gjort {name} och tjänat {amount}",
+    "total": "Totalt nu",
+    "ok": "Klart!",
+    "undo": "Ångra"
   }
 }

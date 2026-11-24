@@ -61,6 +61,8 @@ src/
 
 - Earned page "By chore" rows have +/- steppers (corrections are logged as normal +1/-1 rows; rows touched in a visit stay visible at 0; archived chores reuse their latest plus price).
 
+- Plus on the chore list shows a full-screen celebration (`ChoreDoneOverlay`: "Great job! You did X and earned Y", total counting up, confetti, auto-closes after ~4.5s, "Done!" unlocks after 1.2s, "Undo" logs a minus). Minus and the Earned-page steppers don't show it. It slows down but doesn't prevent spamming; a real fix would be a parent PIN/lock mode (not built).
+
 ## Next steps
 
 No planned work left; the core flow (profiles, chores, earn, payout, history, settings, sv/en, dark mode) is live. Ideas to discuss with the user:

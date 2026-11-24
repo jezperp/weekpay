@@ -110,5 +110,12 @@
     "word": "DELETE",
     "confirm": "Delete history",
     "done": "History for {name} was reset."
+  },
+  "done": {
+    "title": "Great job!",
+    "text": "You did {name} and earned {amount}",
+    "total": "Total now",
+    "ok": "Done!",
+    "undo": "Undo"
   }
 }

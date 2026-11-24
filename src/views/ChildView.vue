@@ -5,6 +5,7 @@ import { Minus, Plus } from 'lucide-vue-next'
 import { useChoresStore, type Chore } from '@/stores/chores'
 import { useChoreLogsStore } from '@/stores/chorelogs'
 import ChoreDetailModal from '@/components/ChoreDetailModal.vue'
+import ChoreDoneOverlay from '@/components/ChoreDoneOverlay.vue'
 import { iconFor } from '@/lib/icons'
 import { formatKr } from '@/lib/format'
 import { playCoin, playUndo } from '@/lib/sound'
@@ -15,6 +16,10 @@ const logsStore = useChoreLogsStore()
 
 const loadError = ref('')
 const selected = ref<Chore | null>(null)
+
+// The full-screen "great job" shown after a plus. Blocks the list while it is up, which also slows down spamming.
+const done = ref<{ chore: Chore; amount: number; fromTotal: number; key: number } | null>(null)
+let doneKey = 0
 
 onMounted(async () => {
   try {
@@ -29,11 +34,25 @@ async function tap(chore: Chore, delta: 1 | -1) {
   // Play synchronously inside the tap so the browser allows audio.
   if (delta === 1) playCoin()
   else playUndo()
+
+  const fromTotal = logsStore.balance
+  // The log is added to the list synchronously, so the total is already up to date below.
+  const pending = logsStore.log(chore, delta)
+  if (delta === 1) done.value = { chore, amount: chore.price, fromTotal, key: ++doneKey }
+
   try {
-    await logsStore.log(chore, delta)
+    await pending
   } catch (e) {
+    done.value = null
     loadError.value = e instanceof Error ? e.message : t('common.couldNotSave')
   }
+}
+
+// "Undo" on the celebration screen: closes it and takes the chore away again (logged as a minus).
+function undoDone() {
+  const d = done.value
+  done.value = null
+  if (d) void tap(d.chore, -1)
 }
 </script>
 
@@ -73,5 +92,8 @@ async function tap(chore: Chore, delta: 1 | -1) {
     </p>
 
     <ChoreDetailModal :chore="selected" @close="selected = null" />
+
+    <ChoreDoneOverlay v-if="done" :key="done.key" :chore="done.chore" :amount="done.amount"
+      :from-total="done.fromTotal" :to-total="logsStore.balance" @close="done = null" @undo="undoDone" />
   </div>
 </template>
